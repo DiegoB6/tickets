@@ -20,18 +20,10 @@
 
         <h4><a href="{% url 'cambiarContraseña' %}"> Cambiar contraseña </a></h4>
 
-
         <div>
-            <a href= "{% url 'mostrarTickets' %}" class="btn btn-primary my-3">Mostrar Tickets</a>
+            <a href= "{% url 'opcionesJefe' %}" class="btn btn-primary my-3">Cambiar Opciones de Tickets</a>
         </div>
 
-        <div>
-            <a href= "{% url 'mostrarOpciones' %}" class="btn btn-primary my-3">Cambiar Opciones de Tickets</a>
-        </div>
-
-        <div>
-            <a href= "/admin" class="btn btn-primary my-3">Panel de Administrador</a>
-        </div>
 
         <div>
             <a href= "{% url 'crearStuff' %}" class="btn btn-primary my-3">Crear Nuevo Jefe de Mesa</a>
@@ -44,7 +36,6 @@
     {% else %}
 
         <h3>No estas logeado <a href="{% url 'login' %}">Login</a></h3>
-
 
     {% endif %}
 

@@ -64,7 +64,7 @@ class Ticket(models.Model):
 
 
 
-class Usuario(models.Model):
+""" class Usuario(models.Model):
     usuario = models.OneToOneField(User, on_delete=models.CASCADE)
     descripcion = models.TextField(max_length=500, blank=True)
 
@@ -79,4 +79,4 @@ def crear_usuario(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=User)
 def guardar_usuario(sender, instance, **kwargs):
-    instance.usuario.save()
+    instance.usuario.save() """

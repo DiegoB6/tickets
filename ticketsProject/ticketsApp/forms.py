@@ -4,7 +4,7 @@ from ticketsApp.models import *
 
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-from .models import Usuario
+""" from .models import Usuario """
 
 class TicketsForm(forms.Form):
 
@@ -119,3 +119,26 @@ class SingUpForm(UserCreationForm):
                   'email',
                   'password1',
                   'password2')
+        
+
+
+class CrearStuff(UserCreationForm):
+    email = forms.EmailField(required=False)
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2')
+    def save(self, commit = True):
+        user= super().save(commit=False)
+        user.email = self.cleaned_data['email']
+        user.is_staff = True
+        if commit:
+            user.save()
+        return user
+
+
+class CrearEjecutivo(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput)
+    
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password']

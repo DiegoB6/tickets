@@ -21,26 +21,40 @@ from ticketsApp.views import *
 
 from django.contrib.auth.views import LogoutView
 
-
+from django.contrib.auth import views as auth_views
+from django.urls import path
 
 
 urlpatterns = [
     path('', login_user, name='login_user'),
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls, name="admin"),
     path('cuentas/', include("django.contrib.auth.urls")),
+
     path('home/', TemplateView.as_view(template_name="home.html"), name="home"),
+    path('homeEjecutivo/', TemplateView.as_view(template_name="homeEjecutivo.html"), name="homeEjecutivo"),
+    path('homeJefe/', TemplateView.as_view(template_name="homeJefe.html"), name="homeJefe"),
 
     path('logout_user', logout_user, name='logout'),
 
-    path('signUp/', signUp, name='signUp'),
+
+
+    path('crearStuff/', registrarStaff, name="crearStuff"),
+    path('crearEjecutivo/', registrarEjecutivo, name="crearEjecutivo"),
 
     
     path('mostrarTickets/', mostrarTickets, name='mostrarTickets'),
+    path('opcionesEjecutivo/', opcionesEjecutivo, name='opcionesEjecutivo'),
+
+
     path('registroTickets/', crearTicket, name="registroTickets"),
     path('editarTicket/<int:id>', editarTicket, name='editarTicket'),
     path('eliminarTicket/<int:id>', eliminarTicket, name='eliminarTicket'),
 
+
     path('mostrarOpciones/', mostrarOpciones, name='mostrarOpciones'),
+    path('opcionesJefe/', opcionesJefe, name='opcionesJefe'),
+
+
 
     path('registroAreas/', crearAreas, name="registroAreas"),
     path('editarAreas/<int:id>', editarAreas, name='editarAreas'),
@@ -61,5 +75,10 @@ urlpatterns = [
     path('registroTipos/', crearTipos, name="registroTipos"),
     path('editarTipos/<int:id>', editarTipos, name='editarTipos'),
     path('eliminarTipos/<int:id>', eliminarTipos, name='eliminarTipos'),
+
+
+    path('cambiarContraseña/', auth_views.PasswordChangeView.as_view(template_name='registration/cambiarContraseña.html'), name='cambiarContraseña'),
+ 
+    path('cambiarContraseñaExito/', auth_views.PasswordChangeDoneView.as_view(template_name='registration/cambiarContraseñaExito.html'), name='cambiarContraseñaExito'),
     
 ]

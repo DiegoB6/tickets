@@ -13,8 +13,9 @@ from django.contrib import messages
 
 from django.contrib.auth.decorators import login_required
 
-from .models import Usuario
+""" from .models import Usuario """
 from .forms import SingUpForm
+from .forms import CrearStuff
 # Create your views here.
 
 
@@ -24,6 +25,15 @@ def mostrarTickets(request):
             'titulo': 'Lista de personas'
     }
     return render (request, 'ticketsApp/mostrarTickets.html', data)
+
+
+def opcionesEjecutivo(request):
+    Tickets = Ticket.objects.all()
+    data = {'tickets': Tickets,
+            'titulo': 'Lista de personas'
+    }
+    return render (request, 'ticketsApp/opcionesEjecutivo.html', data)
+
 
 
 def crearTicket(request):
@@ -86,6 +96,24 @@ def mostrarOpciones(request):
             'titulo': 'Opciones del ticket'
     }
     return render (request, 'ticketsApp/mostrarOpciones.html', data)
+
+
+
+def opcionesJefe(request):
+    areas = Area.objects.all()
+    criticidades = Criticidad.objects.all()
+    estados = Estado.objects.all()
+    servicios = Servicio.objects.all()
+    tipos = Tipo.objects.all()
+    data = {
+            'areas': areas,
+            'criticidades': criticidades,
+            'estados': estados,
+            'servicios': servicios,
+            'tipos': tipos,
+            'titulo': 'Opciones del ticket'
+    }
+    return render (request, 'ticketsApp/opcionesJefe.html', data)
 
 
 
@@ -310,7 +338,13 @@ def login_user(request):
         user = authenticate(request, username = username, password = password)
         if user is not None:
             login(request, user)
-            return redirect('home')
+
+            if user.is_superuser:
+                return redirect('home')
+            elif user.is_staff:
+                return redirect('homeJefe')
+            else:
+                return redirect('homeEjecutivo')
 
         else:
             messages.success(request, ("Hubo un error, intentelo de nuevo"))
@@ -329,7 +363,7 @@ def logout_user(request):
 
 
 
-def signUp(request):
+""" def signUp(request):
     usuario = Usuario
     form = SingUpForm
     if request.method == 'POST':
@@ -339,6 +373,31 @@ def signUp(request):
             return redirect('/')
         else: print(form.errors)
 
-    return render(request, 'registration/registrar.html', {'form':form})
+    return render(request, 'registration/registrar.html', {'form':form}) """
 
 
+
+def registrarStaff(request):
+    if request.method == 'POST':
+        form = CrearStuff(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login_user')  # Redirige a una página después de crear el usuario
+    else:
+        
+        form = CrearStuff()
+        print(form.errors)
+    return render(request, 'registration/registrarStaff.html', {'form': form})
+
+
+def registrarEjecutivo(request):
+    if request.method == 'POST':
+        form = CrearEjecutivo(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password'])  # Esto encripta la contraseña
+            user.save()
+            return redirect('login_user') 
+    else:
+        form = CrearEjecutivo()
+    return render(request, 'registration/registrarEjecutivo.html', {'form': form})
