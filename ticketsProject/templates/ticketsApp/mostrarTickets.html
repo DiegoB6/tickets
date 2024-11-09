@@ -14,9 +14,18 @@
             Lista de Tickets
         </div>
 
+
+
         <div>
-            <a href= "{% url 'registroTickets' %}" class="btn btn-primary my-3">Agregar Ticket</a>
+            <a href= "{% url 'registroTickets' %}" class="btn btn-primary my-3">Agregar ticket con usuario nuevo</a>
+            <a href= "{% url 'registroTicketConUsuario' %}" class="btn btn-primary my-3">Agregar ticket con usuario existente</a>
         </div>
+
+
+        <form method="get" action="{% url 'mostrarTickets' %}" class="d-flex mb-4">
+            <input type="text" name="ticket_id" class="form-control me-2" placeholder="Buscar por ID, dejar en blanco para mostrar todos los tickets" aria-label="Buscar por ID">
+            <button class="btn btn-outline-primary" type="submit">Buscar</button>
+        </form>
 
 
         {%if tickets %}
@@ -32,7 +41,7 @@
                     <th>Detalle</th>
                     <th>Observacion</th>
                     <th>Servicio</th>
-                    <th>Trabajador</th>
+                    <!-- <th>Trabajador</th> -->
                     <th>Tipo</th>
                     <th>Criticidad</th>
                     <th>Estado</th>
@@ -43,14 +52,14 @@
                 {% for ticket in tickets %}
                     <tr>
                         <td>{{ticket.id}}</td>
-                        <td>{{ticket.telefono}}</td>
-                        <td>{{ticket.correo}}</td>
-                        <td>{{ticket.nombre}}</td>
-                        <td>{{ticket.rut}}</td>
+                        <td>{{ticket.usuario.telefono}}</td>
+                        <td>{{ticket.usuario.correo}}</td>
+                        <td>{{ticket.usuario.nombre}}</td>
+                        <td>{{ticket.usuario.rut}}</td>
                         <td>{{ticket.detalle}}</td>
                         <td>{{ticket.observacion}}</td>
                         <td>{{ticket.servicio}}</td>
-                        <td>{{ticket.trabajador}}</td>
+                        <!-- <td>{{ticket.trabajador}}</td> -->
                         <td>{{ticket.tipo}}</td>
                         <td>{{ticket.criticidad}}</td>
                         <td>{{ticket.estado}}</td>

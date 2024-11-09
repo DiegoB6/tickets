@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'ticketsProject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'proyectotickets',
+        'NAME': 'tickets2',
         'USER': 'root',
         'PASSWORD': '',
     }

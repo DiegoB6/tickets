@@ -6,32 +6,22 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 """ from .models import Usuario """
 
-class TicketsForm(forms.Form):
 
-    telefono = forms.CharField(label='Telefono', max_length=15)
-    correo = forms.CharField(label='Correo',max_length=50)
-    nombre = forms.CharField(label='Nombre',max_length=50)
-    rut = forms.CharField(label='Rut',max_length=20)
-    detalle = forms.CharField(label='Detalle',max_length=100)
-    observacion = forms.CharField(label='Observacion',max_length=100)
+
+
+class UsuarioForm(forms.ModelForm):
+    class Meta:
+        model = Usuario
+        fields = ['telefono', 'correo', 'nombre', 'rut']
+        labels = {
+            'telefono': 'Teléfono',
+            'correo': 'Correo',
+            'nombre': 'Nombre',
+            'rut': 'RUT',
+        }
+
+class TicketForm(forms.ModelForm):
     servicio = forms.ModelChoiceField(queryset=Servicio.objects.all())
-    trabajador = forms.ModelChoiceField(queryset=Trabajador.objects.all())
-    tipo = forms.ModelChoiceField(queryset=Tipo.objects.all())
-    criticidad = forms.ModelChoiceField(queryset=Criticidad.objects.all())
-    estado = forms.ModelChoiceField(queryset=Estado.objects.all())
-    area = forms.ModelChoiceField(queryset=Area.objects.all())
-
-
-class TicketsForm(forms.ModelForm):
-
-    telefono = forms.CharField(label='Telefono', max_length=15)
-    correo = forms.CharField(label='Correo',max_length=50)
-    nombre = forms.CharField(label='Nombre',max_length=50)
-    rut = forms.CharField(label='Rut',max_length=20)
-    detalle = forms.CharField(label='Detalle',max_length=100)
-    observacion = forms.CharField(label='Observacion',max_length=100)
-    servicio = forms.ModelChoiceField(queryset=Servicio.objects.all())
-    trabajador = forms.ModelChoiceField(queryset=Trabajador.objects.all())
     tipo = forms.ModelChoiceField(queryset=Tipo.objects.all())
     criticidad = forms.ModelChoiceField(queryset=Criticidad.objects.all())
     estado = forms.ModelChoiceField(queryset=Estado.objects.all())
@@ -39,7 +29,8 @@ class TicketsForm(forms.ModelForm):
 
     class Meta:
         model = Ticket
-        fields= '__all__'
+        fields = ['detalle', 'observacion', 'servicio', 'tipo', 'criticidad', 'estado', 'area']
+
 
 
 
@@ -142,3 +133,21 @@ class CrearEjecutivo(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password']
+
+
+
+
+class TicketConUsuarioForm(forms.ModelForm):
+    usuario = forms.ModelChoiceField(queryset=Usuario.objects.all(), label="Seleccionar Usuario")
+    
+    detalle = forms.CharField(label='Detalle', max_length=100)
+    observacion = forms.CharField(label='Observación', max_length=100)
+    servicio = forms.ModelChoiceField(queryset=Servicio.objects.all())
+    tipo = forms.ModelChoiceField(queryset=Tipo.objects.all())
+    criticidad = forms.ModelChoiceField(queryset=Criticidad.objects.all())
+    estado = forms.ModelChoiceField(queryset=Estado.objects.all())
+    area = forms.ModelChoiceField(queryset=Area.objects.all())
+
+    class Meta:
+        model = Ticket
+        fields = ['usuario', 'detalle', 'observacion', 'servicio', 'tipo', 'criticidad', 'estado', 'area']

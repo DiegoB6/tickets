@@ -47,36 +47,24 @@ class Trabajador(models.Model):
         return self.usuario_nombre
 
 
-class Ticket(models.Model):
+
+
+class Usuario(models.Model):
     telefono = models.CharField(max_length=15)
     correo = models.CharField(max_length=50)
     nombre = models.CharField(max_length=50)
     rut = models.CharField(max_length=20)
+    def __str__(self):
+        return self.nombre
+
+class Ticket(models.Model):
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE) 
     detalle = models.CharField(max_length=100)
     observacion = models.CharField(max_length=100)
     servicio = models.ForeignKey(Servicio, on_delete=models.CASCADE) 
-    trabajador = models.ForeignKey(Trabajador, on_delete=models.CASCADE) 
     tipo = models.ForeignKey(Tipo, on_delete=models.CASCADE) 
     criticidad = models.ForeignKey(Criticidad, on_delete=models.CASCADE) 
     estado = models.ForeignKey(Estado, on_delete=models.CASCADE) 
     area = models.ForeignKey(Area, on_delete=models.CASCADE) 
 
 
-
-
-""" class Usuario(models.Model):
-    usuario = models.OneToOneField(User, on_delete=models.CASCADE)
-    descripcion = models.TextField(max_length=500, blank=True)
-
-    def __str__(self):
-        return self.usuario.username
-    
-
-@receiver(post_save, sender=User)
-def crear_usuario(sender, instance, created, **kwargs):
-    if created:
-        Usuario.objects.create(Usuario = instance)
-
-@receiver(post_save, sender=User)
-def guardar_usuario(sender, instance, **kwargs):
-    instance.usuario.save() """

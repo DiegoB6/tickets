@@ -46,8 +46,8 @@ urlpatterns = [
     path('opcionesEjecutivo/', opcionesEjecutivo, name='opcionesEjecutivo'),
 
 
-    path('registroTickets/', crearTicket, name="registroTickets"),
-    path('editarTicket/<int:id>', editarTicket, name='editarTicket'),
+    path('registroTickets/', crear_ticket, name="registroTickets"),
+
     path('eliminarTicket/<int:id>', eliminarTicket, name='eliminarTicket'),
 
 
@@ -81,4 +81,14 @@ urlpatterns = [
  
     path('cambiarContraseñaExito/', auth_views.PasswordChangeDoneView.as_view(template_name='registration/cambiarContraseñaExito.html'), name='cambiarContraseñaExito'),
     
+
+    path('api/usuario/<str:rut>/', usuario_data, name='usuario_data'),
+
+
+    path('registroTicketConUsuario/', crear_ticket_con_usuario, name='registroTicketConUsuario'),
+    path('editarTicket/<int:id>', editarTicket, name='editarTicket'),
+
+    path('registroTEjecutivo/', registroTEjecutivo, name='registroTEjecutivo'),
+    path('registroTUsuarioEjecutivo/', registroTUsuarioEjecutivo, name='registroTUsuarioEjecutivo'),
+
 ]
