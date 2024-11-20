@@ -3,16 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Staff</title>
+    <title>Registrar Jefe de Mesa</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
-    
-    <h2>Registrar un nuevo usuario Jefe de Mesa</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Registrar</button>
-    </form>
 
+    <div class="container my-5">
+        <div class="alert alert-info display-1 text-center mb-4">
+            Registrar Jefe de Mesa
+        </div>
+
+        <div class="col-4 offset-md-4 alert alert-success text-center" role="alert">
+            <h1>{{user.username}}</h1>
+        </div>
+
+        <div class="col-4 offset-md-4 alert alert-warning text-center mb-5" role="alert">
+            Usted quiere registrar un nuevo Jefe de Mesa!
+        </div>
+
+        <!--formulario para cambiar contraseña-->
+        <div class="container my-5">
+            <form method="post" class="col-6 offset-md-3 border-3 border border-info-secundary rounded p-4"> <!--offset para centrar formulario-->
+                <div class="text-center mb-4">
+                    <h3>Registrar Jefe de Mesa</h3>
+                </div>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="d-grid"><!--hace que el boton ocupe todo el ancho-->
+                    <button type="submit" class="btn btn-primary my-3">Registrar Nuevo Jefe de Mesa</button>
+                    <a href="{% url 'home' %}" class="btn btn-danger mt-2">Cancelar</a>
+                </div>
+            </form>
+        </div>
+   
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

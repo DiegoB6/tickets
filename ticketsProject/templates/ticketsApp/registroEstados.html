@@ -13,13 +13,26 @@
         <div class="alert alert-info display-3 text-center" >
             {{titulo}}
         </div>
+        <div class="col-4 offset-md-4 alert alert-success text-center" role="alert">
+          <h1>{{user.username}}</h1>
+      </div>
 
-        <form method="post">
+      <div class="col-4 offset-md-4 alert alert-warning text-center mb-5" role="alert">
+          Usted quiere crear un nuevo Estado!
+      </div>
+
+        <form method="post" class="col-6 offset-md-3 border-3 border border-info-secundary rounded p-4">
+          <div class="text-center mb-4">
+            <h1>Crear Estado</h1>
+          </div>
             {{formestado.as_p}}
             {% csrf_token %}
 
-            <input type="submit" value="{{titulo}}" class="btn btn-outline-primary">
-            <a href="{% url 'mostrarOpciones' %}" class="btn btn-danger">Volver Atras</a>
+            <div class="d-grid">
+              <input type="submit" value="{{titulo}}" class="btn btn-outline-primary mb-3">
+              <a href="#" class="btn btn-danger mt-2" onclick="window.history.back(); return false;" class="btn btn-danger">Volver Atras</a>
+            </div>
+            
         </form>
     </div>
 

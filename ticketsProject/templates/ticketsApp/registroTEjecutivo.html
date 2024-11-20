@@ -10,20 +10,25 @@
   <body>
 
     <div class="container mt-5">
-        <div class="alert alert-info display-3 text-center" >
+        <div class="alert alert-info display-1 text-center mb-4">
             {{titulo}}
         </div>
+        <div class="col-4 offset-md-4 alert alert-success text-center" role="alert">
+          <h1>{{user.username}}</h1>
+        </div>
+        <div class="col-4 offset-md-4 alert alert-warning text-center mb-5" role="alert">
+          Aquí puede agregar un ticket con Nuevo Usuario!
+        </div>
 
-        <form method="post">
+        <form method="post" class="col-6 offset-md-3 border-3 border border-info-secundary rounded p-4 mb-5">
             
             {% csrf_token %}
             {{usuario_form.as_p}}
             {{ticket_form.as_p}}
-
-
-
-            <input type="submit" value="{{titulo}}" class="btn btn-outline-primary">
-            <a href="{% url 'opcionesEjecutivo' %}" class="btn btn-danger">Volver Atras</a>
+            <div class="d-grid text-center"><!--hace que el boton ocupe todo el ancho-->
+              <input type="submit" value="{{titulo}}" class="btn btn-outline-primary">
+              <a href="#" class="btn btn-danger mt-2" onclick="window.history.back(); return false;">Volver Atras</a>
+            </div>
         </form>
     </div>
 

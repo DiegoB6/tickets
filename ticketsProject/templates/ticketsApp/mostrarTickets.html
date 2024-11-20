@@ -8,20 +8,27 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
   <body>
-
-    <div class="container mt-5">
-        <div class="alert alter-info display-4 text-center">
+    <!--nuevo-->
+    <div class="container my-5">
+        <div class="alert alert-info display-1 text-center mb-4">
             Lista de Tickets
         </div>
-
-
-
-        <div>
-            <a href= "{% url 'registroTickets' %}" class="btn btn-primary my-3">Agregar ticket con usuario nuevo</a>
-            <a href= "{% url 'registroTicketConUsuario' %}" class="btn btn-primary my-3">Agregar ticket con usuario existente</a>
+        <div class="col-4 offset-md-4 alert alert-success text-center" role="alert">
+            <h1>{{user.username}}</h1>
         </div>
-
-
+        <div class="col-4 offset-md-4 alert alert-warning text-center mb-5" role="alert">
+            Aquí puede ver la lista de tickets existentes!
+        </div>
+        <!--formulario de botones opciones de usuario-->
+        <form class="col-6 offset-md-3 border-3 border border-info-secundary rounded p-4 mb-5"> <!--offset para centrar formulario-->
+            <div class="d-grid text-center"><!--hace que el boton ocupe todo el ancho-->
+                <h1>Menú de opciones para {{user.username}}</h1>
+                <a href="{% url 'registroTickets' %}" class="btn btn-primary mt-3">Agregar ticket con usuario nuevo</a>
+                <a href="{% url 'registroTicketConUsuario' %}" class="btn btn-primary mt-3">Agregar ticket con usuario existente</a>
+                <a href="{% url 'home' %}" class="btn btn-danger mt-3">Volver</a>
+            </div>
+        </form>
+        <!--buscador y lista-->
         <form method="get" action="{% url 'mostrarTickets' %}" class="d-flex mb-4">
             <input type="text" name="ticket_id" class="form-control me-2" placeholder="Buscar por ID, dejar en blanco para mostrar todos los tickets" aria-label="Buscar por ID">
             <button class="btn btn-outline-primary" type="submit">Buscar</button>
@@ -74,16 +81,12 @@
         </table>
 
         {% else %}
-            <h1>No hay Tickets</h1>
+            <h3 class="text-center">No hay Tickets</h3>
         {% endif %}
-
-        <div>
-            <a href="{% url 'home' %}" class="btn btn-danger my-3">Volver Atras</a>
-        </div>
+        <!--buscador y lista-->
     </div>
-
+    <!--nuevo-->
     
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </body>
 </html>
