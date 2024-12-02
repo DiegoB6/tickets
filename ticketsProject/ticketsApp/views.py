@@ -21,6 +21,7 @@ from django.db.models import Q
 # Create your views here.
 
 
+@login_required
 def mostrarTickets(request):
     ticket_id = request.GET.get('ticket_id')
 
@@ -37,6 +38,7 @@ def mostrarTickets(request):
     return render (request, 'ticketsApp/mostrarTickets.html', data)
 
 
+@login_required
 def opcionesEjecutivo(request):
     Tickets = Ticket.objects.all()
     data = {'tickets': Tickets,
@@ -46,6 +48,7 @@ def opcionesEjecutivo(request):
 
 
 
+@login_required
 def crear_ticket(request):
     if request.method == 'POST':
         usuario_form = UsuarioForm(request.POST)
@@ -69,6 +72,7 @@ def crear_ticket(request):
 
 
 
+@login_required
 def crear_ticket_con_usuario(request):
     if request.method == 'POST':
         formV2 = TicketConUsuarioForm(request.POST)
@@ -107,6 +111,7 @@ def crear_ticket_con_usuario(request):
 
 
 
+@login_required
 def eliminarTicket(request,id):
     ticket = Ticket.objects.get(id = id)
     ticket.delete()
@@ -116,7 +121,7 @@ def eliminarTicket(request,id):
 
 
 
-
+@login_required
 def mostrarOpciones(request):
     areas = Area.objects.all()
     criticidades = Criticidad.objects.all()
@@ -135,6 +140,7 @@ def mostrarOpciones(request):
 
 
 
+@login_required
 def opcionesJefe(request):
     areas = Area.objects.all()
     criticidades = Criticidad.objects.all()
@@ -154,6 +160,7 @@ def opcionesJefe(request):
 
 
 
+@login_required
 def crearAreas(request):
     formarea = forms.AreasForms()
 
@@ -170,6 +177,7 @@ def crearAreas(request):
     return render(request, 'ticketsApp/registroAreas.html', data)
 
 
+@login_required
 def editarAreas(request, id):
     area = Area.objects.get(id = id)
     formarea = AreasForms(instance=area)
@@ -188,6 +196,7 @@ def editarAreas(request, id):
     return render(request, 'ticketsApp/registroAreas.html', data)
 
 
+@login_required
 def eliminarAreas(request,id):
     area = Area.objects.get(id = id)
     area.delete()
@@ -196,6 +205,7 @@ def eliminarAreas(request,id):
 
 
 
+@login_required
 def crearCriticidades(request):
     formcriticidad = forms.CriticidadesForms()
 
@@ -212,6 +222,7 @@ def crearCriticidades(request):
     return render(request, 'ticketsApp/registroCriticidades.html', data)
 
 
+@login_required
 def editarCriticidades(request, id):
     criticidad = Criticidad.objects.get(id = id)
     formcriticidad = CriticidadesForms(instance=criticidad)
@@ -230,7 +241,7 @@ def editarCriticidades(request, id):
     return render(request, 'ticketsApp/registroCriticidades.html', data)
 
 
-
+@login_required
 def eliminarCriticidades(request,id):
     criticidad = Criticidad.objects.get(id = id)
     criticidad.delete()
@@ -238,7 +249,7 @@ def eliminarCriticidades(request,id):
 
 
 
-
+@login_required
 def crearEstados(request):
     formestado = forms.EstadosForms()
 
@@ -255,6 +266,7 @@ def crearEstados(request):
     return render(request, 'ticketsApp/registroEstados.html', data)
 
 
+@login_required
 def editarEstados(request, id):
     estado = Estado.objects.get(id = id)
     formestado = EstadosForms(instance=estado)
@@ -273,7 +285,7 @@ def editarEstados(request, id):
     return render(request, 'ticketsApp/registroEstados.html', data)
 
 
-
+@login_required
 def eliminarEstados(request,id):
     estado = Estado.objects.get(id = id)
     estado.delete()
@@ -281,7 +293,7 @@ def eliminarEstados(request,id):
 
 
 
-
+@login_required
 def crearServicios(request):
     formservicio = forms.ServiciosForms()
 
@@ -298,6 +310,7 @@ def crearServicios(request):
     return render(request, 'ticketsApp/registroServicios.html', data)
 
 
+@login_required
 def editarServicios(request, id):
     servicio = Servicio.objects.get(id = id)
     formservicio = ServiciosForms(instance=servicio)
@@ -316,7 +329,7 @@ def editarServicios(request, id):
     return render(request, 'ticketsApp/registroServicios.html', data)
 
 
-
+@login_required
 def eliminarServicios(request,id):
     servicio = Servicio.objects.get(id = id)
     servicio.delete()
@@ -324,7 +337,7 @@ def eliminarServicios(request,id):
 
 
 
-
+@login_required
 def crearTipos(request):
     formtipo = forms.TiposForms()
 
@@ -341,6 +354,7 @@ def crearTipos(request):
     return render(request, 'ticketsApp/registroTipos.html', data)
 
 
+@login_required
 def editarTipos(request, id):
     tipo = Tipo.objects.get(id = id)
     formtipo = TiposForms(instance=tipo)
@@ -359,12 +373,11 @@ def editarTipos(request, id):
     return render(request, 'ticketsApp/registroTipos.html', data)
 
 
-
+@login_required
 def eliminarTipos(request,id):
     tipo = Tipo.objects.get(id = id)
     tipo.delete()
     return HttpResponseRedirect(reverse('mostrarOpciones') )
-
 
 
 def login_user(request):
@@ -412,7 +425,7 @@ def logout_user(request):
     return render(request, 'registration/registrar.html', {'form':form}) """
 
 
-
+@login_required
 def registrarStaff(request):
     if request.method == 'POST':
         form = CrearStuff(request.POST)
@@ -426,6 +439,7 @@ def registrarStaff(request):
     return render(request, 'registration/registrarStaff.html', {'form': form})
 
 
+@login_required
 def registrarEjecutivo(request):
     if request.method == 'POST':
         form = CrearEjecutivo(request.POST)
@@ -446,6 +460,8 @@ from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from .models import Usuario
 
+
+
 def usuario_data(request, rut):
     usuario = get_object_or_404(Usuario, rut=rut)
     data = {
@@ -457,6 +473,7 @@ def usuario_data(request, rut):
 
 
 
+@login_required
 def editarTicket(request, id):
     # Obtener el ticket por ID y el usuario asociado
     ticket = get_object_or_404(Ticket, id=id)
@@ -490,6 +507,7 @@ def editarTicket(request, id):
 
 
 
+@login_required
 def registroTEjecutivo(request):
     if request.method == 'POST':
         usuario_form = UsuarioForm(request.POST)
@@ -512,6 +530,7 @@ def registroTEjecutivo(request):
     })
 
 
+@login_required
 def registroTUsuarioEjecutivo(request):
     if request.method == 'POST':
         formV2 = TicketConUsuarioForm(request.POST)

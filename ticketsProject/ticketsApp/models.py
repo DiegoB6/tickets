@@ -38,13 +38,13 @@ class Area(models.Model):
         return self.area
 
 
-class Trabajador(models.Model):
+""" class Trabajador(models.Model):
     usuario_nombre = models.CharField(max_length=50)
     contrasena_usuario = models.CharField(max_length=50)
     rol = models.ForeignKey(Rol, on_delete=models.CASCADE) 
     area = models.ForeignKey(Area, on_delete=models.CASCADE) 
     def __str__(self):
-        return self.usuario_nombre
+        return self.usuario_nombre """
 
 
 
